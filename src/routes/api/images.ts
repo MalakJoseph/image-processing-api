@@ -10,7 +10,7 @@ import {
 
 const images = Router();
 
-images.get("/", async (req: Request, res: Response): Promise<void> => {
+images.get("/", async (req: Request, res: Response) => {
   try {
     const filename = req.query.filename as string;
     const width = parseInt(req.query.width as string);

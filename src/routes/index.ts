@@ -6,7 +6,7 @@ const routes = Router();
 
 routes.use("/images", images);
 
-routes.get("/", (_req: Request, res: Response): void => {
+routes.get("/", (_req: Request, res: Response) => {
   res.send(apiPage);
 });
 

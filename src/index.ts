@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import routes from "./routes/index";
 import { generateHTML } from "./utils";
 
@@ -7,7 +7,7 @@ const port = 3000;
 
 app.use("/api", routes);
 
-app.get("/", (_req, res) =>
+app.get("/", (_req: Request, res: Response) =>
   res.send(
     generateHTML({
       title: "Please go to",
