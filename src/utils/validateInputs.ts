@@ -1,6 +1,14 @@
 import { generatePath } from "./fileUtils";
 import { isImgExist } from "./imgUtils";
 
+/**
+ * Validate query params in different scenarios
+ * @param filename Image name
+ * @param width Numeric image width
+ * @param height Numeric image height
+ * @returns A string in case of error or undefined otherwise.
+ */
+
 export const validateInputs = (
   filename: string,
   width: number,
@@ -40,6 +48,10 @@ export const validateInputs = (
 
   return;
 };
+
+/**
+ * Generates html string by consuming pre-designed params.
+ */
 
 function generateHTML({
   title,
