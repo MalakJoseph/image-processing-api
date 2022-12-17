@@ -6,17 +6,52 @@ export const validateInputs = (
   width: number,
   height: number
 ): string | undefined => {
-  if (!filename) return "Filename is missing!";
+  if (!filename)
+    return generateHTML({
+      title: "Filename is missing!",
+      helper:
+        'Do you mean <a href="http://localhost:3000/api/images?filename=santamonica">localhost:3000/api/images?filename=santamonica</a>?',
+    });
 
-  if (!isImgExist(generatePath(filename))) return "No such image!";
+  if (!isImgExist(generatePath(filename)))
+    return generateHTML({
+      title: "No such image!",
+      desc: "Please refer back to read the instructions.",
+      helper: '<a href="http://localhost:3000/api/">Go back</a>',
+    });
 
   if (!width && !height) return;
 
   if (isNaN(width) || isNaN(height))
-    return "Width and height must be provided and of numerical values.";
+    return generateHTML({
+      title: "Bad input!",
+      desc: "Width and height must be provided and of numerical values.",
+      helper:
+        'Do you mean <a href="http://localhost:3000/api/images?filename=santamonica&width=500&height=400">localhost:3000/api/images?filename=santamonica&width=500&height=400</a>?',
+    });
 
   if (width <= 0 || height <= 0)
-    return "Width and height must be positive integers.";
+    return generateHTML({
+      title: "Bad input!",
+      desc: "Width and height must be positive integers.",
+      helper:
+        'Do you mean <a href="http://localhost:3000/api/images?filename=santamonica&width=500&height=400">localhost:3000/api/images?filename=santamonica&width=500&height=400</a>?',
+    });
 
   return;
 };
+
+function generateHTML({
+  title,
+  desc,
+  helper,
+}: {
+  title: string;
+  desc?: string;
+  helper?: string;
+}): string {
+  return `<h3>${title}</h3>${desc ? `<p>${desc}</p>` : ""}${
+    helper ? `<p>${helper}</p>` : ""
+  }
+  `;
+}
