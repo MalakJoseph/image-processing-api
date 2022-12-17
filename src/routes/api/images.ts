@@ -1,6 +1,11 @@
 import { Router, Request, Response } from "express";
 import { writeFile } from "fs/promises";
-import { generatePath, isImgExist, resizeImage } from "../../utils";
+import {
+  generatePath,
+  isImgExist,
+  resizeImage,
+  validateInputs,
+} from "../../utils";
 
 const images = Router();
 
@@ -9,7 +14,10 @@ images.get("/", async (req: Request, res: Response): Promise<void> => {
     const filename = req.query.filename as string;
     const width = parseInt(req.query.width as string);
     const height = parseInt(req.query.height as string);
+    const error = validateInputs(filename, width, height);
     const path = generatePath(filename, height, width);
+
+    if (error) throw new Error(`400/${error}`);
 
     if (!isImgExist(path)) {
       const resizedImage = await resizeImage(filename, width, height);
@@ -17,7 +25,13 @@ images.get("/", async (req: Request, res: Response): Promise<void> => {
     }
 
     res.sendFile(path);
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error.message.startsWith(400)) {
+      res.status(400).send(error.message.replace("400/", ""));
+      return;
+    }
+
     res.status(500).send("Image processing failed, please try again later.");
   }
 });
