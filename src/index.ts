@@ -7,7 +7,7 @@ const port = 3000;
 
 app.use("/api", routes);
 
-app.get("/", (req, res) =>
+app.get("/", (_req, res) =>
   res.send(
     generateHTML({
       title: "Please go to",
