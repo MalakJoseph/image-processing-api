@@ -1,4 +1,5 @@
 import { generatePath } from "./fileUtils";
+import { generateHTML } from "./generateHTML";
 import { isImgExist } from "./imgUtils";
 
 /**
@@ -48,22 +49,3 @@ export const validateInputs = (
 
   return;
 };
-
-/**
- * Generates html string by consuming pre-designed params.
- */
-
-export function generateHTML({
-  title,
-  desc,
-  helper,
-}: {
-  title: string;
-  desc?: string;
-  helper?: string;
-}): string {
-  return `<h3>${title}</h3>${desc ? `<p>${desc}</p>` : ""}${
-    helper ? `<p>${helper}</p>` : ""
-  }
-  `;
-}
