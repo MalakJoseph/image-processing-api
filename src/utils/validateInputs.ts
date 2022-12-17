@@ -53,7 +53,7 @@ export const validateInputs = (
  * Generates html string by consuming pre-designed params.
  */
 
-function generateHTML({
+export function generateHTML({
   title,
   desc,
   helper,

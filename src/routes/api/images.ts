@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { writeFile } from "fs/promises";
 import {
+  generateHTML,
   generatePath,
   isImgExist,
   resizeImage,
@@ -32,7 +33,11 @@ images.get("/", async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    res.status(500).send("Image processing failed, please try again later.");
+    res.status(500).send(
+      generateHTML({
+        title: "Image processing failed, please try again later.",
+      })
+    );
   }
 });
 
