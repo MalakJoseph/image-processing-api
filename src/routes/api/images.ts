@@ -16,7 +16,7 @@ images.get("/", async (req: Request, res: Response) => {
     const width = parseInt(req.query.width as string);
     const height = parseInt(req.query.height as string);
     const error = validateInputs(filename, width, height);
-    const path = generatePath(filename, height, width);
+    const path = generatePath(filename, width, height);
 
     if (error) throw new Error(`400/${error}`);
 
