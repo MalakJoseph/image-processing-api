@@ -15,7 +15,7 @@ const outputPath = path.join(
   `${filename}-${width}x${height}.jpg`
 );
 
-describe("Test endpoints responses", () => {
+describe("Test endpoints failures", () => {
   it("should fail when no filename exists", async () => {
     const res = await request.get("/api/images");
     expect(res.text).toContain("Filename is missing!");
@@ -41,21 +41,18 @@ describe("Test endpoints responses", () => {
     );
     expect(res.text).toContain("Width and height must be positive integers.");
   });
+});
 
+describe("Test successful image processing", () => {
   it("should successfully resize image when all params are clean", async () => {
+    if (existsSync(outputPath)) {
+      await access(outputPath, constants.F_OK);
+      unlink(outputPath);
+    }
+
     await request.get(
       `/api/images?filename=${filename}&width=${width}&height=${height}`
     );
     expect(existsSync(outputPath)).toBeTrue();
   });
-});
-
-// Clean after
-afterAll(async () => {
-  try {
-    await access(outputPath, constants.F_OK);
-    unlink(outputPath);
-  } catch {
-    console.error("cannot access");
-  }
 });
