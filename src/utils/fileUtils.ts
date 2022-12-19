@@ -32,7 +32,7 @@ export function generatePath(
  * A guard to create thumb folder when it's not exist.
  */
 
-function createThumbFolder() {
+function createThumbFolder(): void {
   const thumbDir = path.join(__dirname, "../../assets/thumb");
 
   if (!existsSync(thumbDir)) {
