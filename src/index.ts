@@ -21,3 +21,5 @@ app.get("/", (_req: Request, res: Response) =>
 app.listen(port, () =>
   console.log(`server started at http://localhost:${port}`)
 );
+
+export default app;
